@@ -19,7 +19,9 @@ class DateRange extends Component {
      * @param value{Date}
      */
     onStartDateChange = (value) => {
-        this.onChange({startDate: value});
+        let {onChange, id} = this.props;
+
+        onChange({startDate: value, id});
         this.setState({minEndDate: value});
     }
 
@@ -27,17 +29,25 @@ class DateRange extends Component {
      * @param value{Date}
      */
     onEndDateChange = (value) => {
-        this.onChange({endDate: value});
+        let {onChange, id} = this.props;
+
+        onChange({endDate: value});
         this.setState({maxStartDate: value});
     }
 
+    onDelete = () => {
+        let {onDelete} = this.props;
+        onDelete(0);
+    }
+
     render() {
-        let {startDate, endDate} = this.props;
+        let {startDate, endDate, deletable} = this.props;
 
         return (
             <div>
                 <DatePicker onChange={this.onStartDateChange} max={this.state.maxStartDate} value={startDate}/>
                 <DatePicker onChange={this.onEndDateChange} max={this.state.maxEndDate} min={this.state.minEndDate} value={endDate}/>
+                {deletable && <button onClick={this.onDelete}>X</button>}
             </div>
         );
     }
@@ -46,11 +56,15 @@ class DateRange extends Component {
 DateRange.propTypes = {
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    deletable: PropTypes.bool.isRequired
 };
 
 DateRange.defaultProps = {
-    onChange: emptyFunc
+    onChange: emptyFunc,
+    onDelete: emptyFunc,
+    deletable: true
 };
 
 export default DateRange;

@@ -18,7 +18,7 @@ class DateRange extends Component {
     render() {
         /*ignore unused variable*/
         let {value, ...props} = this.props;
-        let stringValue = value ? value.toISOString().substring(0,10) : null;
+        let stringValue = value ? value.toISOString().substring(0,10) : '';
 
         return (
             <input {...props} type="date" onChange={this.onChange} value={stringValue}  />
