@@ -7,53 +7,67 @@ class DateRangesPage extends Component {
     constructor(...args) {
         super(...args);
 
-        let ranges = [this._generateDateRange()];
+        let ranges = [this._newDateRange()];
 
         this.state = {
             dateRanges: ranges
         }
     }
 
+    /**
+     * Check if any new row is required to added to list, returns array of new rows
+     * @param dateRange {DateRange}
+     * @param dateRanges {Array.<DateRange>}
+     * @returns {Array.<DateRange>}
+     * @private
+     */
     _checkIfNewRow(dateRange, dateRanges = []) {
         let emptyRangeExists = dateRanges.find(d => !d.startDate && !d.endDate && d.id !== dateRange.id);
-        return emptyRangeExists ? [] : [this._generateDateRange()];
+        return emptyRangeExists ? [] : [this._newDateRange()];
     }
 
-    _generateDateRange() {
+    /**
+     * returns new empty DateRange
+     * @returns {{id: int}}
+     * @private
+     */
+    _newDateRange() {
         let range = {
             id: idGenerator(),
-            onDelete: () => {
-                let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
-
-                let newArray = [
-                    ...this.state.dateRanges.slice(0, itemPosition),
-                    ...this.state.dateRanges.slice(itemPosition + 1),
-                    ...this._checkIfNewRow(range, this.state.dateRanges)
-                ];
-
-                this.setState({dateRanges: newArray});
-            },
-            onChange: (value) => {
-                let newItem = Object.assign(range, value);
-                let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
-
-                let newArray = [
-                    ...this.state.dateRanges.slice(0, itemPosition),
-                    newItem,
-                    ...this.state.dateRanges.slice(itemPosition + 1),
-                    ...this._checkIfNewRow(newItem, this.state.dateRanges)
-                ];
-
-                this.setState({dateRanges: newArray});
-            }
         };
 
         return range;
     }
 
+    onChange = (range, value) => {
+        let newItem = Object.assign(range, value);
+        let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
+
+        let newArray = [
+            ...this.state.dateRanges.slice(0, itemPosition),
+            newItem,
+            ...this.state.dateRanges.slice(itemPosition + 1),
+            ...this._checkIfNewRow(newItem, this.state.dateRanges)
+        ];
+
+        this.setState({dateRanges: newArray});
+    }
+
+    onDelete = (range) =>{
+        let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
+
+        let newArray = [
+            ...this.state.dateRanges.slice(0, itemPosition),
+            ...this.state.dateRanges.slice(itemPosition + 1),
+            ...this._checkIfNewRow(range, this.state.dateRanges)
+        ];
+
+        this.setState({dateRanges: newArray});
+    }
+
     render() {
         return (
-            <DateRanges ranges={this.state.dateRanges}/>
+            <DateRanges ranges={this.state.dateRanges} onDelete={this.onDelete} onChange={this.onChange}/>
         );
     }
 }

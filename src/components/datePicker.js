@@ -11,7 +11,7 @@ class DateRange extends Component {
 
     render() {
         return (
-            <DatePicker mode="landscape" {...this.props} onChange={this.onChange} />
+            <DatePicker mode="landscape" {...this.props} onChange={this.onChange} autoOk={true}/>
         );
     }
 }
