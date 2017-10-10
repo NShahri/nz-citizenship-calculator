@@ -1,27 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import emptyFunc from 'empty/function';
+import DatePicker from 'material-ui/DatePicker';
 
 class DateRange extends Component {
-    onChange = (e) => {
-        let value = e.target.value;
+    onChange = (e, value) =>{
         let {onChange} = this.props;
-
-        if (value) {
-            onChange(new Date(value));
-            return;
-        }
-
-        onChange(null);
+        onChange(value);
     }
 
     render() {
-        /*ignore unused variable*/
-        let {value, ...props} = this.props;
-        let stringValue = value ? value.toISOString().substring(0,10) : '';
-
         return (
-            <input {...props} type="date" onChange={this.onChange} value={stringValue}  />
+            <DatePicker mode="landscape" {...this.props} onChange={this.onChange} />
         );
     }
 }

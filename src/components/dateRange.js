@@ -4,50 +4,49 @@ import PropTypes from 'prop-types';
 import emptyFunc from 'empty/function';
 
 class DateRange extends Component {
-    constructor(...args) {
-        super(...args);
-
-        this.state = {
-            maxStartDate: null,
-
-            maxEndDate: new Date(),
-            minEndDate: null
-        };
-    }
-
     /**
      * @param value{Date}
      */
     onStartDateChange = (value) => {
-        let {onChange, id} = this.props;
+        let {onChange} = this.props;
 
-        onChange({startDate: value, id});
-        this.setState({minEndDate: value});
+        onChange({startDate: value});
     }
 
     /**
      * @param value{Date}
      */
     onEndDateChange = (value) => {
-        let {onChange, id} = this.props;
+        let {onChange} = this.props;
 
         onChange({endDate: value});
-        this.setState({maxStartDate: value});
     }
 
     onDelete = () => {
         let {onDelete} = this.props;
-        onDelete(0);
+        onDelete();
     }
 
     render() {
-        let {startDate, endDate, deletable} = this.props;
+        let {startDate, endDate} = this.props;
 
         return (
             <div>
-                <DatePicker onChange={this.onStartDateChange} max={this.state.maxStartDate} value={startDate}/>
-                <DatePicker onChange={this.onEndDateChange} max={this.state.maxEndDate} min={this.state.minEndDate} value={endDate}/>
-                {deletable && <button onClick={this.onDelete}>X</button>}
+                <DatePicker hintText="Entered New Zealand on"
+                            floatingLabelText="Entered New Zealand on"
+                            onChange={this.onStartDateChange}
+                            maxDate={endDate ? endDate : new Date()}
+                            value={startDate}
+                            style={{display: 'inline-block'}}/>
+
+                <DatePicker hintText="Left New Zealand on"
+                            floatingLabelText="Left New Zealand on"
+                            onChange={this.onEndDateChange}
+                            maxDate={new Date()}
+                            minDate={startDate}
+                            style={{display: 'inline-block'}}/>
+
+                <button onClick={this.onDelete}>X</button>
             </div>
         );
     }
@@ -57,14 +56,12 @@ DateRange.propTypes = {
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
     onChange: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    deletable: PropTypes.bool.isRequired
+    onDelete: PropTypes.func.isRequired
 };
 
 DateRange.defaultProps = {
     onChange: emptyFunc,
-    onDelete: emptyFunc,
-    deletable: true
+    onDelete: emptyFunc
 };
 
 export default DateRange;
