@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DatePicker from './datePicker';
+import DatePicker from './nativeDatePicker';
 import PropTypes from 'prop-types';
 import emptyFunc from 'empty/function';
 
@@ -44,6 +44,7 @@ class DateRange extends Component {
                             onChange={this.onEndDateChange}
                             maxDate={new Date()}
                             minDate={startDate}
+                            value={endDate}
                             style={{display: 'inline-block'}}/>
 
                 <button onClick={this.onDelete}>X</button>

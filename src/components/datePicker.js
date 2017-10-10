@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import emptyFunc from 'empty/function';
 import DatePicker from 'material-ui/DatePicker';
 
-class DateRange extends Component {
+class CustomDatePicker extends Component {
     onChange = (e, value) =>{
         let {onChange} = this.props;
         onChange(value);
@@ -16,13 +16,13 @@ class DateRange extends Component {
     }
 }
 
-DateRange.propTypes = {
+CustomDatePicker.propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.instanceOf(Date)
 };
 
-DateRange.defaultProps = {
+CustomDatePicker.defaultProps = {
     onChange: emptyFunc
 };
 
-export default DateRange;
+export default CustomDatePicker;

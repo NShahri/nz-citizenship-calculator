@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import DateRanges from "../components/dateRanges";
 import idGenerator from "../libs/idGenerator";
+import {Link} from 'react-router-dom'
 
 class DateRangesPage extends Component {
     constructor(...args) {
@@ -39,7 +40,13 @@ class DateRangesPage extends Component {
         return range;
     }
 
-    onChange = (range, value) => {
+    /**
+     * change handler
+     * @param range {DateRange} - date range which is changed
+     * @param value {DateRange} - new date range values
+     * @private
+     */
+    _onChange = (range, value) => {
         let newItem = Object.assign(range, value);
         let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
 
@@ -53,7 +60,12 @@ class DateRangesPage extends Component {
         this.setState({dateRanges: newArray});
     }
 
-    onDelete = (range) =>{
+    /**
+     * delete handler
+     * @param range {DateRange}
+     * @private
+     */
+    _onDelete = (range) => {
         let itemPosition = this.state.dateRanges.findIndex(d => d.id === range.id);
 
         let newArray = [
@@ -67,7 +79,10 @@ class DateRangesPage extends Component {
 
     render() {
         return (
-            <DateRanges ranges={this.state.dateRanges} onDelete={this.onDelete} onChange={this.onChange}/>
+            <div>
+                <DateRanges ranges={this.state.dateRanges} onDelete={this._onDelete} onChange={this._onChange}/>
+                <div><Link to="/result">Calculate</Link></div>
+            </div>
         );
     }
 }
