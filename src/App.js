@@ -1,30 +1,45 @@
 import React, {Component} from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
-import Paper from 'material-ui/Paper';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import DateRangesPage from "./pages/dateRangesPage";
 import ResultPage from "./pages/resultPage";
 
+const theme = createMuiTheme({
+    palette: {
+        //type: 'dark', // Switching the dark mode on is a single property value change.
+    },
+});
+
 class App extends Component {
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+            <MuiThemeProvider theme={theme}>
                 <div>
                     <header>
-                        <AppBar title="NZ citizenship residence requirements calculator"/>
+                        <AppBar position="static">
+                            <Toolbar>
+                                <IconButton color="contrast" aria-label="Menu">
+                                    <MenuIcon/>
+                                </IconButton>
+                                <Typography type="title" color="inherit">
+                                    NZ citizenship residence requirements calculator
+                                </Typography>
+                            </Toolbar>
+                        </AppBar>
                     </header>
-                    <Paper zDepth={2}>
-                        <Router>
-                            <Switch>
-                                <Route exact path="/ranges" component={DateRangesPage} />
-                                <Route exact path="/result/:id" component={ResultPage} />
-                                <Redirect to="/ranges"/>
-                            </Switch>
-                        </Router>
-                    </Paper>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/ranges" component={DateRangesPage}/>
+                            <Route exact path="/result/:id" component={ResultPage}/>
+                            <Redirect to="/ranges"/>
+                        </Switch>
+                    </Router>
                 </div>
             </MuiThemeProvider>
         );

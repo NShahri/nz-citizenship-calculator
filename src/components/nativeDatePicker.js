@@ -16,7 +16,8 @@ class NativeDatePicker extends Component {
     }
 
     render() {
-        let {value, maxDate, minDate, ...props} = this.props;
+        /* ignore unused variable */
+        let {value, maxDate, minDate, hintText, floatingLabelText, ...props} = this.props;
         let valueIso = value ? value.toISOString().substring(0, 10) : '';
         let maxDateIso = maxDate ? maxDate.toISOString().substring(0, 10) : '';
         let minDateIso = minDate ? minDate.toISOString().substring(0, 10) : '';

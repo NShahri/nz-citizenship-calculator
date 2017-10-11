@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import DateRanges from "../components/dateRanges";
 import idGenerator from "../libs/idGenerator";
 import {Link} from 'react-router-dom'
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
 
 class DateRangesPage extends Component {
     constructor(...args) {
@@ -80,8 +82,16 @@ class DateRangesPage extends Component {
     render() {
         return (
             <div>
-                <DateRanges ranges={this.state.dateRanges} onDelete={this._onDelete} onChange={this._onChange}/>
-                <div><Link to="/result">Calculate</Link></div>
+                <Grid container align="center" direction="column" justify="center">
+                    <DateRanges ranges={this.state.dateRanges} onDelete={this._onDelete} onChange={this._onChange}/>
+                    <Grid item>
+                        <Link to="/result">
+                            <Button raised color="primary">
+                                Calculate
+                            </Button>
+                        </Link>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
