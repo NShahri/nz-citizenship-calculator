@@ -36,7 +36,7 @@ class App extends Component {
                     <Router>
                         <Switch>
                             <Route exact path="/ranges" component={DateRangesPage}/>
-                            <Route exact path="/result/:id" component={ResultPage}/>
+                            <Route exact path="/result" component={ResultPage}/>
                             <Redirect to="/ranges"/>
                         </Switch>
                     </Router>

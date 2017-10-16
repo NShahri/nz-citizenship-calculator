@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "redux-devtools": "^3.4.0"
   },
   "dependencies": {
     "date-fns": "^1.28.5",

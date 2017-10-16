@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import DateRanges from "../components/dateRanges";
-import idGenerator from "../libs/idGenerator";
 import {Link} from 'react-router-dom'
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
@@ -19,6 +18,11 @@ class DateRangesPage extends Component {
                         <Link to="/result">
                             <Button raised color="primary">
                                 Calculate
+                            </Button>
+                        </Link>
+                        <Link to="/result">
+                            <Button raised color="danger">
+                                Reset
                             </Button>
                         </Link>
                     </Grid>
