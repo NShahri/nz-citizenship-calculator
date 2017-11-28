@@ -6,6 +6,8 @@ import emptyFunc from 'empty/function';
 class DateRange extends Component {
     /**
      * @param value{Date}
+     *
+     * @private
      */
     onStartDateChange = (value) => {
         let {onChange} = this.props;
@@ -15,6 +17,8 @@ class DateRange extends Component {
 
     /**
      * @param value{Date}
+     *
+     * @private
      */
     onEndDateChange = (value) => {
         let {onChange} = this.props;
@@ -22,11 +26,18 @@ class DateRange extends Component {
         onChange({endDate: value});
     }
 
+    /**
+     * @private
+     */
     onDelete = () => {
         let {onDelete} = this.props;
         onDelete();
     }
 
+    /**
+     * @private
+     * @returns {XML}
+     */
     render() {
         let {startDate, endDate} = this.props;
 
