@@ -1,3 +1,7 @@
+
+
+import logger from "../../libs/logger";
+
 const config = {
     chart: {
         type: 'gauge',
@@ -47,7 +51,7 @@ const config = {
     // the value axis
     yAxis: {
         min: 0,
-        max: 200,
+        max: 0,
 
         minorTickInterval: 'auto',
         minorTickWidth: 1,
@@ -65,36 +69,48 @@ const config = {
             rotation: 'auto'
         },
         title: {
-            text: 'days'
+            text: 'Days'
         }
     },
-
-    series: [{
-        name: 'Speed',
-        data: [80],
-        tooltip: {
-            valueSuffix: ' km/h'
-        }
-    }]
+    tooltip: {
+        enabled: false,
+    }
 };
 
 export default function(maxDays, totalDays, threshold) {
     const customizedConfig = {
         yAxis: {
+            min: 0,
+            max: maxDays,
+
             plotBands: [
                 {
                     from: 0,
                     to: threshold,
-                    color: '#55BF3B' // green
+                    color: '#DF5353' // red
                 },
                 {
                     from: threshold,
                     to: maxDays,
-                    color: '#DF5353' // red
+                    color: '#55BF3B' // green
                 }
             ]
-        }
+        },
+        series: [{
+            /*
+            name: '',
+            tooltip: {
+                valueSuffix: ' days'
+            },
+            */
+            data: [totalDays]
+        }]
     };
 
-    return {...config, ...customizedConfig};
+    const newConfig = {...config};
+    newConfig.yAxis = {...newConfig.yAxis, ...customizedConfig.yAxis};
+    newConfig.series = [...customizedConfig.series];
+
+    logger.debug('Total days Gauge chart setting generated', newConfig);
+    return newConfig;
 }
