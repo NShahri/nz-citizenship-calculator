@@ -11,6 +11,41 @@ class BrowserConsole extends Transport {
     }
 }
 
+/**
+ * @typedef {object} DerivedLogger
+ * @method error
+ * @method warn
+ * @method info
+ * @method debug
+ */
+
+/**
+ * default winston config
+ * exports.levels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  http: 3,
+  verbose: 4,
+  debug: 5,
+  silly: 6
+};
+
+ exports.colors = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  http: 'green',
+  verbose: 'cyan',
+  debug: 'blue',
+  silly: 'magenta'
+};
+ */
+
+/**
+ *
+ * @type {DerivedLogger}
+ */
 const logger = winston.createLogger({
     level: 'debug',
     transports: [

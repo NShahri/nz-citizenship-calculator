@@ -8,6 +8,14 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import appReducer from './reducers';
 
+//
+// Setup handler of all unhandled exceptions
+//
+import setupGlobalExceptionHandler from './libs/globalExceptionLogger';
+setupGlobalExceptionHandler(window);
+//
+//
+
 /* eslint-disable no-underscore-dangle */
 let store = createStore(
     appReducer,
