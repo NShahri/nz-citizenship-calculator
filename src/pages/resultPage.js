@@ -8,6 +8,7 @@ import Odometer from 'react-odometerjs';
 import fullDaysInRanges from '../calculator/fullDaysInRanges';
 import 'odometer/sass/odometer-theme-car.sass';
 import TotalDaysChart from '../components/charts/totalDaysChart'
+import DetailsChart from "../components/charts/detailsChart";
 
 class ResultPage extends Component {
     calcTotalDays(dateRanges = []) {
@@ -26,7 +27,8 @@ class ResultPage extends Component {
                 <Grid container align="center" direction="column" justify="center">
                     <Grid item>
                         <Odometer value={this.calcTotalDays(dateRanges)} format="(.ddd),dd"/>
-                        <TotalDaysChart config={{}}/>
+                        <TotalDaysChart/>
+                        <DetailsChart dateRanges={dateRanges}/>
                         <Link to="/ranges">
                             <Button raised color="primary">
                                 Back

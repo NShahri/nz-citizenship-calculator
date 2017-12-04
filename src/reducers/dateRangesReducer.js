@@ -1,9 +1,15 @@
 import idGenerator from "../libs/idGenerator";
 
 /**
+ * @class DateRange
+ * @property {Date} startDate
+ * @property {Date} endDate
+ */
+
+/**
  * Check if any new row is required to added to list, returns array of new rows
- * @param dateRange {DateRange}
- * @param dateRanges {Array.<DateRange>}
+ * @param {DateRange} dateRange
+ * @param {Array.<DateRange>} dateRanges
  * @returns {Array.<DateRange>}
  * @private
  */
@@ -28,8 +34,8 @@ const _newDateRange = () => {
 
 /**
  *
- * @param dateRanges {Array.<DateRange>}
- * @param action {{type: string, range DateRange, value: DateRange}}
+ * @param {Array.<DateRange>} dateRanges
+ * @param {{type: string, range DateRange, value: DateRange}} action
  * @returns {Array.<DateRange>}
  */
 const dateRangesReducer = (dateRanges = [_newDateRange()], action) => {
