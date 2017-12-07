@@ -7,23 +7,27 @@ import PropTypes from 'prop-types';
 HighchartsMore(ReactHighcharts.Highcharts);
 
 class DetailsChart extends Component {
+    /**
+     * @private
+     */
     static defaultProps = {
-        threshold: 1000,
-        maxDays: 5 * 365,
-        totalDays: 500
-    }
+    };
 
     render() {
         let {dateRanges} = this.props;
 
-        return <div style={{
+        let styles = {
             minWidth: '310px',
             maxWidth: '400px',
-            height: '300px', margin: '0 auto'
-        }}>
+            height: '300px',
+            margin: '0 auto'
+        };
 
-            <ReactHighcharts config={chartConfigBuilder(dateRanges)}/>
-        </div>;
+        return (
+            <div style={styles}>
+                <ReactHighcharts config={chartConfigBuilder(dateRanges)}/>
+            </div>
+        );
     }
 }
 

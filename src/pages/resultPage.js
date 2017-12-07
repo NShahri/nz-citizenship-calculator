@@ -49,7 +49,7 @@ ResultPage.defaultProps = {};
 
 const mapStateToProps = state => {
     return {
-        dateRanges: state.dateRanges
+        dateRanges: state.dateRanges.filter(d => d.startDate || d.endDate)
     }
 }
 

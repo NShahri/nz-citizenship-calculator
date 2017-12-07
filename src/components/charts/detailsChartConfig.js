@@ -9,7 +9,7 @@ const config = {
         text: 'Stacked bar chart'
     },
     xAxis: {
-        categories: []
+        categories: ['Date']
     },
     yAxis: {
         min: 0,
@@ -56,7 +56,7 @@ export default function (dateRanges = []) {
     };
 
     const newConfig = {...config};
-    newConfig.xAxis = {...newConfig.xAxis, ...customizedConfig.xAxis};
+    //newConfig.xAxis = {...newConfig.xAxis, ...customizedConfig.xAxis};
     newConfig.series = [...customizedConfig.series];
 
     logger.debug('Details stacked bar chart setting generated', newConfig);
