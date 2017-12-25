@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Prompt} from "react-router";
+import {Prompt, withRouter} from "react-router";
 import emptyFunc from 'empty/function';
 import isPromise from 'is-promise';
 
@@ -64,4 +64,4 @@ RouterHandler.defaultProps = {
     onChange: emptyFunc
 };
 
-export default RouterHandler;
+export default withRouter(RouterHandler);

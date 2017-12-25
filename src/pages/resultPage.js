@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import 'odometer/sass/odometer-theme-car.sass';
 import TotalDaysChart from '../components/charts/totalDaysChart'
 import DetailsChart from "../components/charts/detailsChart";
 

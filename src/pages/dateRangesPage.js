@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import {connect} from 'react-redux'
 import emptyFunc from 'empty/function';
+import RouterHandler from "../react-router-handler";
 
 class DateRangesPage extends Component {
     render() {
@@ -13,6 +14,7 @@ class DateRangesPage extends Component {
 
         return (
             <div>
+                <RouterHandler onChange={() => dateRanges.length > 1}/>
                 <Grid container align="center" direction="column" justify="center">
                     <DateRanges ranges={dateRanges} onDelete={onDelete} onChange={onChange}/>
                     <Grid item>
