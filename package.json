@@ -13,6 +13,7 @@
     "empty": "^0.10.1",
     "highcharts-exporting": "^0.1.2",
     "highcharts-more": "^0.1.2",
+    "is-promise": "^2.1.0",
     "material-ui": "^1.0.0-beta.16",
     "material-ui-icons": "^1.0.0-beta.15",
     "prop-types": "^15.6.0",
