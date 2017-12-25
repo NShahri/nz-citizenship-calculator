@@ -14,26 +14,48 @@ const styles = theme => ({
     }),
 });
 
+/**
+ * Check if any new row is required to added to list, returns array of new rows
+ * @param {Array.<DateRange>} dateRanges
+ * @returns boolean
+ */
+const checkIfNewRow = (dateRanges = []) => {
+    let emptyRangeExists = dateRanges.find(d => !d.startDate && !d.endDate);
+    return emptyRangeExists ? false : true;
+}
+
+
 class DateRanges extends Component {
-    render() {
-        let {ranges = [], onDelete, onChange, classes} = this.props;
+    /**
+     * @private
+     */
+    renderItem(range = {}) {
+        let {onDelete, onChange, classes} = this.props;
 
         return (
-            ranges.map((range, index) =>
-                <Grid item key={range.id}>
-                    <Paper className={classes.root} elevation={4}>
-                        <DateRange
-                            {...range}
-                            onDelete={() => onDelete(range)}
-                            onChange={value => {
-                                onChange(range, value)
-                            }}
-                        />
-                    </Paper>
-                </Grid>
-            )
-
+            <Grid item key={range.id}>
+                <Paper className={classes.root} elevation={4}>
+                    <DateRange
+                        {...range}
+                        onDelete={() => onDelete(range)}
+                        onChange={value => {
+                            onChange(range, value)
+                        }}
+                    />
+                </Paper>
+            </Grid>
         );
+    }
+
+    render() {
+        let {ranges = []} = this.props;
+
+        let renderResult = ranges.map(range => this.renderItem(range));
+        if(checkIfNewRow(ranges)){
+            return [...renderResult, this.renderItem()];
+        }
+
+        return renderResult;
     }
 }
 

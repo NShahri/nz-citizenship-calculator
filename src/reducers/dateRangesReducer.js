@@ -6,17 +6,6 @@ import idGenerator from "../libs/idGenerator";
  * @property {Date} endDate
  */
 
-/**
- * Check if any new row is required to added to list, returns array of new rows
- * @param {DateRange} dateRange
- * @param {Array.<DateRange>} dateRanges
- * @returns {Array.<DateRange>}
- * @private
- */
-const _checkIfNewRow = (dateRange, dateRanges = []) => {
-    let emptyRangeExists = dateRanges.find(d => !d.startDate && !d.endDate && d.id !== dateRange.id);
-    return emptyRangeExists ? [] : [_newDateRange()];
-}
 
 /**
  * returns new empty DateRange
@@ -38,17 +27,24 @@ const _newDateRange = () => {
  * @param {{type: string, range DateRange, value: DateRange}} action
  * @returns {Array.<DateRange>}
  */
-const dateRangesReducer = (dateRanges = [_newDateRange()], action) => {
+const dateRangesReducer = (dateRanges = [], action) => {
     switch (action.type) {
+        case 'DATE_RANGE_ADD':
+            let newItem = Object.assign(_newDateRange(), action.value);
+
+            return [
+                ...dateRanges,
+                newItem
+            ];
+
         case 'DATE_RANGE_CHANGE':
-            let newItem = Object.assign({}, action.range, action.value);
+            let currentItem = Object.assign({}, action.range, action.value);
             let itemIndex = dateRanges.findIndex(d => d.id === action.range.id);
 
             return [
                 ...dateRanges.slice(0, itemIndex),
-                newItem,
-                ...dateRanges.slice(itemIndex + 1),
-                ..._checkIfNewRow(newItem, dateRanges)
+                currentItem,
+                ...dateRanges.slice(itemIndex + 1)
             ];
 
         case 'DATE_RANGE_DELETE':
@@ -56,8 +52,7 @@ const dateRangesReducer = (dateRanges = [_newDateRange()], action) => {
 
             return [
                 ...dateRanges.slice(0, itemPosition),
-                ...dateRanges.slice(itemPosition + 1),
-                ..._checkIfNewRow(action.range, dateRanges)
+                ...dateRanges.slice(itemPosition + 1)
             ];
 
         default:

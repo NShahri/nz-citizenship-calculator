@@ -10,13 +10,13 @@ import RouterHandler from "../react-router-handler";
 
 class DateRangesPage extends Component {
     render() {
-        let {dateRanges, onChange, onDelete} = this.props;
+        let {dateRanges, onChange, onDelete, onAdd} = this.props;
 
         return (
             <div>
-                <RouterHandler onChange={() => dateRanges.length > 1}/>
+                <RouterHandler onChange={() => dateRanges.length > 0}/>
                 <Grid container align="center" direction="column" justify="center">
-                    <DateRanges ranges={dateRanges} onDelete={onDelete} onChange={onChange}/>
+                    <DateRanges ranges={dateRanges} onDelete={onDelete} onChange={onChange} onAdd={onAdd}/>
                     <Grid item>
                         <Link to="/result">
                             <Button raised color="primary">
@@ -38,7 +38,7 @@ class DateRangesPage extends Component {
 DateRangesPage.propTypes = {
     dateRanges: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };
 
 DateRangesPage.defaultProps = {
@@ -51,13 +51,13 @@ const mapStateToProps = state => {
     return {
         dateRanges: state.dateRanges
     }
-}
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         onChange: (range, value) => {
             dispatch({
-                type: 'DATE_RANGE_CHANGE',
+                type: range.id ? 'DATE_RANGE_CHANGE' : 'DATE_RANGE_ADD',
                 range,
                 value
             });
@@ -69,8 +69,7 @@ const mapDispatchToProps = dispatch => {
             })
         }
     }
-}
-
+};
 
 export default connect(
     mapStateToProps,
