@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import {connect} from 'react-redux'
+import emptyFunc from 'empty/function';
 
 class DateRangesPage extends Component {
     render() {
@@ -33,11 +34,15 @@ class DateRangesPage extends Component {
 }
 
 DateRangesPage.propTypes = {
-    ranges: PropTypes.array.isRequired
+    dateRanges: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 DateRangesPage.defaultProps = {
-    ranges: []
+    dateRanges: [],
+    onChange: emptyFunc,
+    onDelete: emptyFunc
 };
 
 const mapStateToProps = state => {
